@@ -1,2 +1,2 @@
-rootProject.name = "WordCountCollector"
+rootProject.name = "word-count-collector"
 
