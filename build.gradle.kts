@@ -11,6 +11,10 @@ plugins {
 group = "com.github.mckernant1"
 version = "1.0-SNAPSHOT"
 
+application {
+    mainClassName = "com.github.mckernant1.marketeer.collector.CollectorRunnerKt"
+}
+
 repositories {
     mavenCentral()
     jcenter()
@@ -31,10 +35,10 @@ dependencies {
 
 tasks {
     compileKotlin {
-        kotlinOptions.jvmTarget = "11"
+        kotlinOptions.jvmTarget = "1.8"
     }
     compileTestKotlin {
-        kotlinOptions.jvmTarget = "11"
+        kotlinOptions.jvmTarget = "1.8"
     }
     test {
         useJUnitPlatform()
