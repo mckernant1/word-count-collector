@@ -23,7 +23,7 @@ internal suspend fun sweepSite(siteUrl: String) {
         it.length >= 3 && !wordsToIgnore.contains(it)
     }.map { (word, count) ->
         WordDay(word, count, siteUrl)
-    }.filter { it.wordCount < 4 }
+    }.filter { it.wordCount > 4 }
 
     logger.info("Inserting ${wordDays.size} words into collection")
     collection.insertMany(wordDays)
