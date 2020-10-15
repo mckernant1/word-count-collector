@@ -38,7 +38,7 @@ fun main() {
     timer.schedule(today.time, Duration.ofHours(12).toMillis()) {
         sitesList.forEach {
             logger.info("Starting sweeper for '$it' at ${
-                LocalDateTime.now().atZone(ZoneId.of("America/LosAngeles"))
+                LocalDateTime.now().atZone(ZoneId.of("America/Los_Angeles"))
             }")
             GlobalScope.launch { sweepSite(it) }
         }

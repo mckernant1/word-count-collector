@@ -28,7 +28,7 @@ internal suspend fun sweepSite(siteUrl: String) {
             word,
             count,
             siteUrl,
-            LocalDateTime.now().atZone(ZoneId.of("America/LosAngeles"))
+            LocalDateTime.now().atZone(ZoneId.of("America/Los_Angeles"))
         )
     }.filter { it.wordCount > 4 }
 
