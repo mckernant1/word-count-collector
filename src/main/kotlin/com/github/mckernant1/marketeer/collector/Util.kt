@@ -2,6 +2,7 @@ package com.github.mckernant1.marketeer.collector
 
 import org.litote.kmongo.KMongo
 import org.litote.kmongo.getCollection
+import java.time.ZonedDateTime
 
 fun getStringFromFile(filename: String): String =
     object {}::class.java.classLoader.getResource(filename)!!.readText()
@@ -19,7 +20,8 @@ val collection =
 data class WordDay(
     val word: String,
     val wordCount: Int,
-    val source: String
+    val source: String,
+    val timeStamp: ZonedDateTime
 )
 
 
