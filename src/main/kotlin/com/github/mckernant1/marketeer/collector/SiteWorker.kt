@@ -22,7 +22,7 @@ internal suspend fun sweepSite(siteUrl: String) {
         .text()
 
     val wordDays = mapStringToCount(doc) {
-        it.length >= 3 && !wordsToIgnore.contains(it)
+        it.length >= 3 && !wordsToIgnore.contains(it.toLowerCase())
     }.map { (word, count) ->
         WordDay(
             word,
