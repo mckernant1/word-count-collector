@@ -24,24 +24,14 @@ fun main() {
     val sitesList = Json.decodeFromString<List<String>>(
         getStringFromFile(SITES_LIST_FILENAME)
     )
-    val timer = Timer("SweepTimer")
-
-    val today = Calendar.getInstance()
-
-    today.add(Calendar.DATE, 1)
-    today.set(Calendar.HOUR_OF_DAY, 2)
-    today.set(Calendar.MINUTE, 0)
-    today.set(Calendar.SECOND, 0)
-    today.timeZone = TimeZone.getTimeZone("America/LosAngeles")
-
-    logger.info("Starting time: ${today.time}")
-    timer.schedule(today.time, Duration.ofHours(12).toMillis()) {
-        sitesList.forEach {
-            logger.info("Starting sweeper for '$it' at ${
+    sitesList.forEach {
+        logger.info(
+            "Starting sweeper for '$it' at ${
                 LocalDateTime.now().atZone(ZoneId.of("America/Los_Angeles"))
-            }")
-            GlobalScope.launch { sweepSite(it) }
-        }
+            }"
+        )
+        GlobalScope.launch { sweepSite(it) }
     }
+
 }
 
