@@ -20,18 +20,18 @@ const val BASIC_WORDS_FILENAME: String = "basic-words.json"
 
 private val logger = LoggerFactory.getLogger("LauncherLogger")
 
-fun main() {
+fun main() = runBlocking {
     val sitesList = Json.decodeFromString<List<String>>(
         getStringFromFile(SITES_LIST_FILENAME)
     )
-    sitesList.forEach {
+    sitesList.map {
         logger.info(
             "Starting sweeper for '$it' at ${
                 LocalDateTime.now().atZone(ZoneId.of("America/Los_Angeles"))
             }"
         )
-        GlobalScope.launch { sweepSite(it) }
+        launch { sweepSite(it) }
+    }.forEach {
+        it.join()
     }
-
 }
-
