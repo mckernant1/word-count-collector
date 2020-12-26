@@ -7,6 +7,7 @@ import org.litote.kmongo.save
 import org.slf4j.LoggerFactory
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZonedDateTime
 
 private val logger = LoggerFactory.getLogger("SweeperLogger")
 
@@ -28,11 +29,11 @@ internal suspend fun sweepSite(siteUrl: String) {
             word,
             count,
             siteUrl,
-            LocalDateTime.now().atZone(ZoneId.of("America/Los_Angeles"))
+            ZonedDateTime.now(ZoneId.of("America/Los_Angeles"))
         )
     }.filter { it.wordCount > 4 }
 
-    logger.info("Inserting ${wordDays.size} words into collection")
+    logger.info("Inserting ${wordDays.size} words into collection for site '$siteUrl'")
     collection.insertMany(wordDays)
 }
 

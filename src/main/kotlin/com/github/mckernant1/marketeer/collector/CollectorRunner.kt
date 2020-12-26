@@ -26,9 +26,7 @@ fun main() = runBlocking {
     )
     sitesList.map {
         logger.info(
-            "Starting sweeper for '$it' at ${
-                LocalDateTime.now().atZone(ZoneId.of("America/Los_Angeles"))
-            }"
+            "Starting sweeper for '$it'"
         )
         launch { sweepSite(it) }
     }.forEach {
