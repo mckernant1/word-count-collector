@@ -34,4 +34,5 @@ fun main() = runBlocking {
     }.forEach {
         it.join()
     }
+    logger.info("Jobs completed. Finishing...")
 }
