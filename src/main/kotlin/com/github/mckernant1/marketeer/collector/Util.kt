@@ -10,7 +10,7 @@ fun getStringFromFile(filename: String): String =
 
 
 private val connectionString: String = System.getenv("MONGO_CONNECTION_STRING")
-        ?: throw Exception("Environment variable MONGO_USER has not been specified")
+        ?: throw Exception("Environment variable MONGO_CONNECTION_STRING has not been specified")
 
 private val client = KMongo.createClient(connectionString)
 val collection =
