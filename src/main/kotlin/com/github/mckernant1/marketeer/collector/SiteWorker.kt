@@ -3,16 +3,13 @@ package com.github.mckernant1.marketeer.collector
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.jsoup.Jsoup
-import org.litote.kmongo.save
 import org.slf4j.LoggerFactory
-import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
 private val logger = LoggerFactory.getLogger("SweeperLogger")
 
-
-internal suspend fun sweepSite(siteUrl: String) {
+internal fun sweepSite(siteUrl: String): List<WordDay> {
     val wordsToIgnore = Json.decodeFromString<List<String>>(
         getStringFromFile(BASIC_WORDS_FILENAME)
     )
@@ -22,7 +19,7 @@ internal suspend fun sweepSite(siteUrl: String) {
         .body()
         .text()
 
-    val wordDays = mapStringToCount(doc) {
+    return mapStringToCount(doc) {
         it.length >= 3 && !wordsToIgnore.contains(it.toLowerCase())
     }.map { (word, count) ->
         WordDay(
@@ -33,8 +30,6 @@ internal suspend fun sweepSite(siteUrl: String) {
         )
     }.filter { it.wordCount > 4 }
 
-    logger.info("Inserting ${wordDays.size} words into collection for site '$siteUrl'")
-    collection.insertMany(wordDays)
 }
 
 internal fun mapStringToCount(string: String, filter: (String) -> Boolean = { true }) = string

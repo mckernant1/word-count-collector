@@ -1,7 +1,13 @@
 package com.github.mckernant1.marketeer.collector
 
-import org.litote.kmongo.KMongo
-import org.litote.kmongo.getCollection
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import java.time.ZonedDateTime
 
 fun getStringFromFile(filename: String): String =
@@ -9,19 +15,30 @@ fun getStringFromFile(filename: String): String =
 
 
 
-private val connectionString: String = System.getenv("MONGO_CONNECTION_STRING")
-        ?: throw Exception("Environment variable MONGO_CONNECTION_STRING has not been specified")
+//private val connectionString: String = System.getenv("MONGO_CONNECTION_STRING")
+//        ?: throw Exception("Environment variable MONGO_CONNECTION_STRING has not been specified")
+//
+//private val client = KMongo.createClient(connectionString)
+//val collection =
+//    client.getDatabase("words").getCollection<WordDay>("words")
 
-private val client = KMongo.createClient(connectionString)
-val collection =
-    client.getDatabase("words").getCollection<WordDay>("words")
-
-
+@Serializable
 data class WordDay(
     val word: String,
     val wordCount: Int,
     val source: String,
-    val timeStamp: ZonedDateTime
+    @Serializable(ZonedDateTimeSerializer::class) val timeStamp: ZonedDateTime
 )
 
+class ZonedDateTimeSerializer : KSerializer<ZonedDateTime> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ZonedDateTime", PrimitiveKind.STRING)
 
+    override fun deserialize(decoder: Decoder): ZonedDateTime {
+       return ZonedDateTime.parse(decoder.decodeString())
+    }
+
+    override fun serialize(encoder: Encoder, value: ZonedDateTime) {
+        encoder.encodeString(value.toString())
+    }
+
+}
