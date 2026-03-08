@@ -20,7 +20,6 @@ internal fun sweepSite(siteUrl: String): List<WordDay> {
             .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
             .header("Accept-Language", "en-US,en;q=0.9")
             .header("Accept-Encoding", "gzip, deflate, br")
-            .header("Connection", "keep-alive")
             .timeout(5000)
             .ignoreContentType(true)
             .followRedirects(true)
