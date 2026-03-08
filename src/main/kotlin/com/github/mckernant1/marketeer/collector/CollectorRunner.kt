@@ -27,20 +27,21 @@ fun main() = runBlocking {
     )
     val subFolder = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH")
         .format(ZonedDateTime.now().truncatedTo(ChronoUnit.HOURS))
-    sitesList.asSequence()
-        .map {
-            logger.info(
-                "Starting sweeper for '$it'"
-            )
-            it to sweepSite(it)
-        }.forEach { (site, words) ->
-            logger.info("Inserting ${words.size} words into collection for site '$site'")
 
-            s3.putObject({
-                it.bucket(BUCKET_NAME)
-                it.key("$FOLDER_NAME/${subFolder}/${site.dropLast(1).removePrefix("https://www.")}.json")
-            }, RequestBody.fromString(Json.encodeToString(words)))
+    for (site in sitesList) {
+        logger.info(
+            "Starting sweeper for '$site'"
+        )
+        val words = try {
+            sweepSite(site)
+        } catch (e: Exception) {
+            logger.warn("Could not get words for '$site'", e)
+            continue
         }
-
+        s3.putObject({
+            it.bucket(BUCKET_NAME)
+            it.key("$FOLDER_NAME/${subFolder}/${site.dropLast(1).removePrefix("https://www.")}.json")
+        }, RequestBody.fromString(Json.encodeToString(words)))
+    }
     logger.info("Finishing...")
 }

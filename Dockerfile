@@ -1,10 +1,10 @@
-FROM openjdk:8 AS build
+FROM 653528873951.dkr.ecr.us-west-2.amazonaws.com/docker-hub/library/eclipse-temurin:21-jammy AS build
 RUN mkdir /app
 COPY . /app
 WORKDIR /app
 RUN ./gradlew build --no-daemon
 
-FROM openjdk:8-jre-slim
+FROM 653528873951.dkr.ecr.us-west-2.amazonaws.com/docker-hub/library/eclipse-temurin:21-jre-jammy AS runner
 
 RUN mkdir /app
 

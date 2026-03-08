@@ -14,13 +14,16 @@ internal fun sweepSite(siteUrl: String): List<WordDay> {
         getStringFromFile(BASIC_WORDS_FILENAME)
     )
     logger.info("Getting raw html for '$siteUrl'")
-    val doc = Jsoup.connect(siteUrl)
-        .get()
-        .body()
-        .text()
-
+    val doc = try {
+         Jsoup.connect(siteUrl)
+            .get()
+            .body()
+            .text()
+    } catch (e: Exception) {
+        throw RuntimeException("Could not get html for '$siteUrl'", e)
+    }
     return mapStringToCount(doc) {
-        it.length >= 3 && !wordsToIgnore.contains(it.toLowerCase())
+        it.length >= 3 && !wordsToIgnore.contains(it.lowercase())
     }.map { (word, count) ->
         WordDay(
             word,
