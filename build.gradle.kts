@@ -27,7 +27,7 @@ dependencies {
 
     implementation("org.jsoup:jsoup:1.15.3")
 
-    implementation("org.slf4j:slf4j-simple:1.7.30")
+    implementation("org.slf4j:slf4j-simple:2.0.17")
 
     implementation(platform("software.amazon.awssdk:bom:2.41.14"))
     implementation("software.amazon.awssdk:s3")
