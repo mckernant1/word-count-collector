@@ -1,4 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -18,23 +17,28 @@ application {
 
 repositories {
     mavenCentral()
+    maven(uri("https://mvn.mckernant1.com/release"))
 }
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0")
 
     implementation("org.jsoup:jsoup:1.22.1")
+    implementation("com.mckernant1.commons:metrics:0.1.6")
+
+    implementation("org.jsoup:jsoup:1.15.3")
 
     implementation("org.slf4j:slf4j-simple:2.0.17")
 
     implementation(platform("software.amazon.awssdk:bom:2.41.14"))
     implementation("software.amazon.awssdk:s3")
+    implementation("software.amazon.awssdk:cloudwatch")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.3")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:6.0.3")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.3")
 
 
 }
