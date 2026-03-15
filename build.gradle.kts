@@ -33,7 +33,7 @@ dependencies {
 
     implementation("org.slf4j:slf4j-simple:2.0.17")
 
-    implementation(platform("software.amazon.awssdk:bom:2.41.14"))
+    implementation(platform("software.amazon.awssdk:bom:2.42.13"))
     implementation("software.amazon.awssdk:s3")
     implementation("software.amazon.awssdk:cloudwatch")
 
