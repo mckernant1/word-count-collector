@@ -26,7 +26,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0")
 
     implementation("org.jsoup:jsoup:1.22.1")
-    implementation("com.mckernant1.commons:metrics:0.1.6")
+    implementation("com.mckernant1.commons:metrics:0.1.7")
     implementation("com.mckernant1:kotlin-utils:0.3.21")
 
     implementation("org.jsoup:jsoup:1.15.3")
