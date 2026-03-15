@@ -29,7 +29,7 @@ dependencies {
     implementation("com.mckernant1.commons:metrics:0.1.6")
     implementation("com.mckernant1:kotlin-utils:0.3.21")
 
-    implementation("org.jsoup:jsoup:1.15.3")
+    implementation("org.jsoup:jsoup:1.22.1")
 
     implementation("org.slf4j:slf4j-simple:2.0.17")
 
